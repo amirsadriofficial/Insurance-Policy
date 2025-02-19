@@ -8,12 +8,14 @@ function InsurancePolicyDetail() {
     { title: "مدل خودرو", keyword: "" },
   ];
   return (
-    <div className="flex flex-col items-center py-[24px]">
+    <div className="flex flex-col items-center pb-[24px]">
       <CarPlate />
-      <div className="w-full px-[36px]">
+      <div className="w-full px-[36px] mt-[24px]">
         {detailItems.map((item) => (
-          <div key={item.title} className="flex items-center w-full mt-[8px]">
-            <p className="whitespace-nowrap text-[#808080] text-[14px]">{item.title}</p>
+          <div key={item.title} className="flex items-center w-full mb-[8px]">
+            <p className="whitespace-nowrap text-[#808080] text-[14px]">
+              {item.title}
+            </p>
             <div className="w-full border border-dashed"></div>
             <p className="">پارسیان</p>
           </div>

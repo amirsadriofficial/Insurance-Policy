@@ -1,3 +1,4 @@
+import CarOwnerDetail from "@/components/car-owner-details";
 import InsurancePolicyDetail from "@/components/insurance-policy-detail";
 import TitleBar from "@/components/title-bar";
 
@@ -7,6 +8,7 @@ export default function Home() {
       <TitleBar title="مشخصات بیمه نامه" />
       <InsurancePolicyDetail />
       <TitleBar title="مشخصات مالک خودرو" />
+      <CarOwnerDetail />
     </div>
   );
 }
