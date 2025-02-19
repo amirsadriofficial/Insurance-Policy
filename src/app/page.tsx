@@ -1,3 +1,10 @@
+import TitleBar from "@/components/title-bar";
+
 export default function Home() {
-  return <div>Hello World!</div>;
+  return (
+    <div>
+      <TitleBar title="مشخصات بیمه نامه" />
+      <TitleBar title="مشخصات مالک خودرو" />
+    </div>
+  );
 }
