@@ -1,6 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
+import ModalAddress from "../address-modal";
 
 function RegistrationAddressDetail() {
+  const [isOpenModal, setIsOpenModal] = useState(false);
   return (
     <div className="px-[20px]">
       <p className="font-medium">آدرس جهت درج روی بیمه‌نامه</p>
@@ -10,9 +13,13 @@ function RegistrationAddressDetail() {
       <button
         className="bg-[#FFC453] w-full py-[12px] font-semibold"
         type="button"
+        onClick={() => setIsOpenModal(true)}
       >
         انتخاب از آدرس های من
       </button>
+      {isOpenModal && (
+        <ModalAddress toggleModal={() => setIsOpenModal((prev) => !prev)} />
+      )}
     </div>
   );
 }

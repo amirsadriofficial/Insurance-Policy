@@ -5,6 +5,7 @@ interface ButtonProps {
   isLoading?: boolean;
   isDisabled?: boolean;
   isOutlined?: boolean;
+  fullWidth?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
 }
@@ -13,12 +14,14 @@ const Button: React.FC<ButtonProps> = ({
   isLoading = false,
   isDisabled = false,
   isOutlined = false,
+  fullWidth = false,
   onClick,
   children,
 }) => {
   // DESC: Define base styles
-  const baseStyles =
-    "px-4 py-[12px] rounded-md focus:outline-none border-2 flex justify-center gap-2 min-w-[140px]";
+  const baseStyles = `px-4 py-[12px] rounded-md focus:outline-none border-2 flex justify-center gap-2 min-w-[140px] font-medium ${
+    fullWidth && "w-full"
+  }`;
   // DESC: Helper function to get active styles based on outlined state
   const getActiveStyles = () => {
     if (isOutlined) {
