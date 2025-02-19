@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
   children,
 }) => {
   // DESC: Define base styles
-  const baseStyles = `px-4 py-[12px] rounded-md focus:outline-none border-2 flex justify-center gap-2 min-w-[140px] font-medium ${
+  const baseStyles = `px-4 py-[12px] focus:outline-none border-2 flex justify-center gap-2 min-w-[140px] font-medium ${
     fullWidth && "w-full"
   }`;
   // DESC: Helper function to get active styles based on outlined state
@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
       };
     }
     return {
-      base: "bg-[#000] text-white",
+      base: "bg-[#000] text-white border border-[#000]",
       loading: "bg-[#ACACAC] text-[#525252] cursor-wait",
       disabled: "bg-[#DAD8D8] text-[#858484]",
     };
