@@ -1,3 +1,4 @@
+import Button from "@/components/button";
 import CarOwnerDetail from "@/components/car-owner-details";
 import InsurancePolicyDetail from "@/components/insurance-policy-detail";
 import RegistrationAddressDetail from "@/components/registration-address-detail";
@@ -11,6 +12,9 @@ export default function Home() {
       <TitleBar title="مشخصات مالک خودرو" />
       <CarOwnerDetail />
       <RegistrationAddressDetail />
+      <div dir="ltr" className="p-[20px]">
+        <Button>تایید و ادامه</Button>
+      </div>
     </div>
   );
 }
