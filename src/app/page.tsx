@@ -1,5 +1,6 @@
 import CarOwnerDetail from "@/components/car-owner-details";
 import InsurancePolicyDetail from "@/components/insurance-policy-detail";
+import RegistrationAddressDetail from "@/components/registration-address-detail";
 import TitleBar from "@/components/title-bar";
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
       <InsurancePolicyDetail />
       <TitleBar title="مشخصات مالک خودرو" />
       <CarOwnerDetail />
+      <RegistrationAddressDetail />
     </div>
   );
 }
