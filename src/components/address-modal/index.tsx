@@ -4,12 +4,10 @@ import CloseIcon from "@/assets/icons/close.svg";
 import { useState } from "react";
 import Button from "../button";
 import BaseModal from "../base-modal";
-import { useQuery } from "@tanstack/react-query";
-import api from "@/services";
 import { IAddress } from "./types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface IProps {
-  toggleModal: () => void;
   setSelectedAddress: ({
     addressId,
     addressTitle,
@@ -19,28 +17,26 @@ interface IProps {
   }) => void;
 }
 
-function ModalAddress({ toggleModal, setSelectedAddress }: IProps) {
+function ModalAddress({ setSelectedAddress }: IProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [deletedIds, setDeletedIds] = useState<string[]>(
-    JSON.parse(localStorage.getItem("deletedAddresses") || "[]")
-  );
-  const { data } = useQuery({
-    queryKey: ["Addresses"],
-    queryFn: api.getAddresses,
-  });
-  const filteredData =
-    data?.data?.filter((item: IAddress) => !deletedIds.includes(item.id)) || [];
   const handleDelete = (id: string) => {
-    const updatedDeletedIds = [...deletedIds, id];
-    setDeletedIds(updatedDeletedIds);
-    localStorage.setItem("deletedAddresses", JSON.stringify(updatedDeletedIds));
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("modal", "delete");
+    params.set("id", id);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
+  const addresses = JSON.parse(
+    localStorage.getItem("addresses") || "[]"
+  ) as IAddress[];
 
   return (
-    <BaseModal title="انتخاب آدرس" toggleModal={toggleModal}>
+    <BaseModal title="انتخاب آدرس" toggleModal={() => undefined}>
       <div className="p-4">
         <div className="flex flex-col space-y-4">
-          {filteredData.map((item: IAddress) => (
+          {addresses?.map((item: IAddress) => (
             <div key={item.id} className="flex items-center justify-between">
               <div
                 className="flex items-center gap-3"
@@ -92,7 +88,9 @@ function ModalAddress({ toggleModal, setSelectedAddress }: IProps) {
         </div>
       </div>
       <div className="p-[10px]">
-        <Button fullWidth>انتخاب</Button>
+        <Button fullWidth onClick={() => router.back()}>
+          انتخاب
+        </Button>
       </div>
     </BaseModal>
   );

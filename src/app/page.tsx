@@ -1,5 +1,6 @@
 "use client";
 
+import ModalAddress from "@/components/address-modal";
 import Button from "@/components/button";
 import CarOwnerDetail from "@/components/car-owner-details";
 import InsurancePolicyDetail from "@/components/insurance-policy-detail";
@@ -9,10 +10,15 @@ import SuccessSubmit from "@/components/success-submit";
 import TitleBar from "@/components/title-bar";
 import api from "@/services";
 import { validateNationalId, validatePhoneNumber } from "@/utils/helper";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import DeleteAddressModal from "@/components/delete-address-modal";
 
 export default function Home() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [nationalId, setNationalId] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [selectedAddress, setSelectedAddress] = useState<{
@@ -31,9 +37,23 @@ export default function Home() {
     phoneNumber: false,
     addressId: false,
   });
-  const { isSuccess, isError, mutate: submitOrder } = useMutation({
+  const { isSuccess, mutate: submitOrder } = useMutation({
     mutationFn: api.setOrder,
+    onError: () => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("modal", "error");
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    },
   });
+  const { data } = useQuery({
+    queryKey: ["Addresses"],
+    queryFn: api.getAddresses,
+  });
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem("addresses", JSON.stringify(data?.data));
+    }
+  }, [data]);
   const handleSubmitOrder = () => {
     if (
       !validateNationalId(nationalId) ||
@@ -83,7 +103,13 @@ export default function Home() {
       ) : (
         <SuccessSubmit />
       )}
-      {isError && <RetrySubmitModal />}
+      {searchParams.get("modal") === "error" && (
+        <RetrySubmitModal retrySubmitOrder={handleSubmitOrder} />
+      )}
+      {searchParams.get("modal") === "addresses" && (
+        <ModalAddress setSelectedAddress={setSelectedAddress} />
+      )}
+      {searchParams.get("modal") === "delete" && <DeleteAddressModal />}
     </div>
   );
 }

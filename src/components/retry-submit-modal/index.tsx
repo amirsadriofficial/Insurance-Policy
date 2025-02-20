@@ -1,8 +1,15 @@
 import React from "react";
 import BaseModal from "../base-modal";
 import Button from "../button";
+import { useRouter } from "next/navigation";
 
-function RetrySubmitModal() {
+function RetrySubmitModal({
+  retrySubmitOrder,
+}: {
+  retrySubmitOrder: () => void;
+}) {
+  const router = useRouter();
+
   return (
     <BaseModal toggleModal={() => undefined}>
       <div className="px-[12px] my-[10px]">
@@ -11,8 +18,10 @@ function RetrySubmitModal() {
         </p>
         <p className="font-semibold text-[14px] mb-[16px]">مجددا، تلاش کنید.</p>
         <div className="flex gap-[12px]">
-          <Button fullWidth>تلاش مجدد</Button>
-          <Button isOutlined fullWidth>
+          <Button fullWidth onClick={retrySubmitOrder}>
+            تلاش مجدد
+          </Button>
+          <Button isOutlined fullWidth onClick={() => router.back()}>
             بازگشت
           </Button>
         </div>
