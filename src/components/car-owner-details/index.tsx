@@ -1,18 +1,11 @@
 import React from "react";
+import { IProps } from "./types";
 
 function CarOwnerDetail({
   setNationalId,
   setPhoneNumber,
   errorHandler,
-}: {
-  setNationalId: (value: string) => void;
-  setPhoneNumber: (value: string) => void;
-  errorHandler: {
-    nationalId: boolean;
-    phoneNumber: boolean;
-    addressId: boolean;
-  };
-}) {
+}: IProps) {
   return (
     <div className="px-[20px]">
       <p className="mb-[6px] font-medium">
@@ -32,7 +25,7 @@ function CarOwnerDetail({
       <input
         type="number"
         className={`w-full border border-1 border-[#B4B4B4] h-[48px] font-medium pr-[13px] placeholder-gray-600 ${
-          errorHandler.nationalId && "border-[#E61F10]"
+          errorHandler.phoneNumber && "border-[#E61F10]"
         }`}
         placeholder="شماره تلفن همراه"
         onChange={(e) => setPhoneNumber(e.target.value)}

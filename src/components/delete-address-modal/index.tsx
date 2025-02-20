@@ -20,7 +20,7 @@ function DeleteAddressModal() {
   };
 
   return (
-    <BaseModal title="حذف آدرس" toggleModal={() => undefined}>
+    <BaseModal title="حذف آدرس">
       <div className="px-[12px] my-[10px]">
         <p className="font-semibold">آیا از حذف آدرس خود، مطمین هستید؟</p>
         <div className="bg-[#F2F2F2] mt-[16px] mb-[24px] p-2">

@@ -4,18 +4,8 @@ import CloseIcon from "@/assets/icons/close.svg";
 import { useState } from "react";
 import Button from "../button";
 import BaseModal from "../base-modal";
-import { IAddress } from "./types";
+import { IAddress, IProps } from "./types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-interface IProps {
-  setSelectedAddress: ({
-    addressId,
-    addressTitle,
-  }: {
-    addressId: string;
-    addressTitle: string;
-  }) => void;
-}
 
 function ModalAddress({ setSelectedAddress }: IProps) {
   const router = useRouter();
@@ -33,7 +23,7 @@ function ModalAddress({ setSelectedAddress }: IProps) {
   ) as IAddress[];
 
   return (
-    <BaseModal title="انتخاب آدرس" toggleModal={() => undefined}>
+    <BaseModal title="انتخاب آدرس">
       <div className="p-4">
         <div className="flex flex-col space-y-4">
           {addresses?.map((item: IAddress) => (

@@ -1,8 +1,5 @@
 import CarIcon from "@/assets/icons/car.svg";
-
-interface IProps {
-  title: string;
-}
+import { IProps } from "./types";
 
 function TitleBar({ title }: IProps) {
   return (

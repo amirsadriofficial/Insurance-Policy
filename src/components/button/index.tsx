@@ -1,16 +1,8 @@
 import React from "react";
 import SpinnerIcon from "@/assets/icons/loading.svg";
+import { IProps } from "./types";
 
-interface ButtonProps {
-  isLoading?: boolean;
-  isDisabled?: boolean;
-  isOutlined?: boolean;
-  fullWidth?: boolean;
-  onClick?: () => void;
-  children: React.ReactNode;
-}
-
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<IProps> = ({
   isLoading = false,
   isDisabled = false,
   isOutlined = false,

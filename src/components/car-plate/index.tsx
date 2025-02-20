@@ -1,10 +1,6 @@
 import React from "react";
 import IranFlag from "@/assets/icons/iran-flag.svg";
 
-// interface IProps {
-//   carNumber?: string;
-// }
-
 function CarPlate() {
   return (
     <div className="flex h-[50px] w-max rounded-[5px] border-2 border-[#000]">

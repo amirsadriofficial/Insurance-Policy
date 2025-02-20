@@ -2,16 +2,13 @@ import React from "react";
 import BaseModal from "../base-modal";
 import Button from "../button";
 import { useRouter } from "next/navigation";
+import { IProps } from "./types";
 
-function RetrySubmitModal({
-  retrySubmitOrder,
-}: {
-  retrySubmitOrder: () => void;
-}) {
+function RetrySubmitModal({ retrySubmitOrder }: IProps) {
   const router = useRouter();
 
   return (
-    <BaseModal toggleModal={() => undefined}>
+    <BaseModal>
       <div className="px-[12px] my-[10px]">
         <p className="font-semibold text-[14px] my-[8px]">
           متاسفانه در ثبت اطلاعات شما، خطایی رخ داده است.

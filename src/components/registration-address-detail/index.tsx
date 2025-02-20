@@ -2,28 +2,9 @@
 
 import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { IProps } from "./types";
 
-function RegistrationAddressDetail({
-  selectedAddress,
-  errorHandler,
-}: {
-  selectedAddress: {
-    addressId: string;
-    addressTitle: string;
-  };
-  setSelectedAddress: ({
-    addressId,
-    addressTitle,
-  }: {
-    addressId: string;
-    addressTitle: string;
-  }) => void;
-  errorHandler: {
-    nationalId: boolean;
-    phoneNumber: boolean;
-    addressId: boolean;
-  };
-}) {
+function RegistrationAddressDetail({ selectedAddress, errorHandler }: IProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();

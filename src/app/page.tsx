@@ -51,6 +51,7 @@ export default function Home() {
   });
   useEffect(() => {
     if (data) {
+      localStorage.removeItem("addresses");
       localStorage.setItem("addresses", JSON.stringify(data?.data));
     }
   }, [data]);
@@ -66,6 +67,11 @@ export default function Home() {
         addressId: !selectedAddress.addressId,
       });
     } else {
+      setErrorHandler({
+        nationalId: false,
+        phoneNumber: false,
+        addressId: false,
+      });
       submitOrder({
         nationalId,
         phoneNumber,
