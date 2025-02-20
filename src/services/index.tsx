@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import request from "@/config/base-request";
+import { ISetOrderBody } from "./types";
 
 const api = {
   getAddresses: () =>
@@ -7,7 +7,7 @@ const api = {
       url: "/my-addresses/",
       method: "GET",
     }),
-  setOrder: ({ data }: any) =>
+  setOrder: ({ data }: { data: ISetOrderBody }) =>
     request({
       url: "/order/completion/",
       method: "POST",

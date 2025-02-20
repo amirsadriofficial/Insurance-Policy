@@ -4,28 +4,35 @@ import CloseIcon from "@/assets/icons/close.svg";
 import { useState } from "react";
 import Button from "../button";
 import BaseModal from "../base-modal";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/services";
+import { IAddress } from "./types";
 
 interface IProps {
   toggleModal: () => void;
 }
 
-const items = [
-  { id: "1", title: "Item 1", description: "Description for item 1" },
-  { id: "2", title: "Item 2", description: "Description for item 2" },
-  { id: "3", title: "Item 3", description: "Description for item 3" },
-];
-
 function ModalAddress({ toggleModal }: IProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [deletedIds, setDeletedIds] = useState<string[]>(
+    JSON.parse(localStorage.getItem("deletedAddresses") || "[]")
+  );
+  const { data } = useQuery({
+    queryKey: ["Addresses"],
+    queryFn: api.getAddresses,
+  });
+  const filteredData = data?.data?.filter((item: IAddress) => !deletedIds.includes(item.id)) || [];
   const handleDelete = (id: string) => {
-    console.log(`Deleted option: ${id}`);
+    const updatedDeletedIds = [...deletedIds, id];
+    setDeletedIds(updatedDeletedIds);
+    localStorage.setItem("deletedAddresses", JSON.stringify(updatedDeletedIds));
   };
 
   return (
     <BaseModal title="انتخاب آدرس" toggleModal={toggleModal}>
       <div className="p-4">
         <div className="flex flex-col space-y-4">
-          {items.map((item) => (
+          {filteredData.map((item: IAddress) => (
             <div key={item.id} className="flex items-center justify-between">
               <div
                 className="flex items-center gap-3"
@@ -48,10 +55,10 @@ function ModalAddress({ toggleModal }: IProps) {
                 />
                 <div>
                   <label htmlFor={item.id} className="font-semibold">
-                    آدرس شماره یک
+                    {item.name}
                   </label>
                   <p className="text-[12px] text-gray-600 mb-2">
-                    آدرس شریعتی خیابان فلان و پلاک فلااااااااااااااااان
+                    {item.details}
                   </p>
                 </div>
               </div>
