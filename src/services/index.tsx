@@ -7,7 +7,7 @@ const api = {
       url: "/my-addresses/",
       method: "GET",
     }),
-  setOrder: ({ data }: { data: ISetOrderBody }) =>
+  setOrder: (data: ISetOrderBody) =>
     request({
       url: "/order/completion/",
       method: "POST",

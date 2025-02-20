@@ -33,15 +33,15 @@ const Button: React.FC<ButtonProps> = ({
     }
     return {
       base: "bg-[#000] text-white border border-[#000]",
-      loading: "bg-[#ACACAC] text-[#525252] cursor-wait",
-      disabled: "bg-[#DAD8D8] text-[#858484]",
+      loading: "bg-[#ACACAC] text-[#525252] cursor-wait border-[#ACACAC]",
+      disabled: "bg-[#DAD8D8] text-[#858484] border-[#DAD8D8]",
     };
   };
   // DESC: Get suitable styles
   const { base, loading, disabled } = getActiveStyles();
   // DESC: Combine all classes based on button state
-  const buttonClassNames = `${baseStyles} ${isDisabled ? disabled : ""} ${
-    isLoading ? loading : base
+  const buttonClassNames = `${baseStyles} ${isLoading ? loading : base} ${
+    isDisabled ? disabled : ""
   }`;
 
   return (

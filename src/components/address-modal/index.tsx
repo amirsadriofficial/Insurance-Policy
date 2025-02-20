@@ -10,9 +10,16 @@ import { IAddress } from "./types";
 
 interface IProps {
   toggleModal: () => void;
+  setSelectedAddress: ({
+    addressId,
+    addressTitle,
+  }: {
+    addressId: string;
+    addressTitle: string;
+  }) => void;
 }
 
-function ModalAddress({ toggleModal }: IProps) {
+function ModalAddress({ toggleModal, setSelectedAddress }: IProps) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [deletedIds, setDeletedIds] = useState<string[]>(
     JSON.parse(localStorage.getItem("deletedAddresses") || "[]")
@@ -21,7 +28,8 @@ function ModalAddress({ toggleModal }: IProps) {
     queryKey: ["Addresses"],
     queryFn: api.getAddresses,
   });
-  const filteredData = data?.data?.filter((item: IAddress) => !deletedIds.includes(item.id)) || [];
+  const filteredData =
+    data?.data?.filter((item: IAddress) => !deletedIds.includes(item.id)) || [];
   const handleDelete = (id: string) => {
     const updatedDeletedIds = [...deletedIds, id];
     setDeletedIds(updatedDeletedIds);
@@ -39,6 +47,10 @@ function ModalAddress({ toggleModal }: IProps) {
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectedOption(item.id);
+                  setSelectedAddress({
+                    addressId: item.id,
+                    addressTitle: item.details,
+                  });
                 }}
               >
                 <input
@@ -50,6 +62,10 @@ function ModalAddress({ toggleModal }: IProps) {
                   onChange={(e) => {
                     e.stopPropagation();
                     setSelectedOption(item.id);
+                    setSelectedAddress({
+                      addressId: item.id,
+                      addressTitle: item.details,
+                    });
                   }}
                   className="mb-2"
                 />
