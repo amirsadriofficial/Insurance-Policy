@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Insurance Policy App
 
-## Getting Started
+This project allows users to view vehicle information, enter vehicle owner details, and generate an insurance policy for the vehicle.
 
-First, run the development server:
+See it live from [here](https://something.com).
+
+## Features
+
+- Full responsive
+- Read and delete addresses
+- Send order with suitable response or retry order
+- Input validation
+- Close modal with device's back button
+
+## Technologies
+
+- Next Js (App Router)
+- Typescript
+- Tailwind CSS
+- React Query + Axios
+
+## Folder Structuring
+
+In this project we follow the folder structuring based on our folder categoriy.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+.
+└── src/
+    └── app
+    └── assets/
+    │    ├── icons
+    └── components
+    │    ├── ...
+    └── config
+    │    ├── base-request
+    └── services
+    └── utils
+    │    ├── helper
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Folders Category
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `app`: all pages.
+- `assets`: all of assets related to user interface such icons, images and etc.
+- `components`: all of component related to user interacting such Inputs, Buttons, Text fields and etc.
+- ‍‍‍‍`config`: All configuration files, such as Axios setup and etc.
+- `services`: all of services related to api call such getAddresses, sendOrder and etc.
+- `utils`: all of static data and helper functions such validateNationalId, validatePhoneNumber and etc.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup
 
-## Learn More
+After cloning the repository, enter the main directory of the project and run the following command to install the required packages:
 
-To learn more about Next.js, take a look at the following resources:
+```
+pnpm install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+After installing the packages, run the following command to run the program:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+pnpm run dev
+```
 
-## Deploy on Vercel
+After the project is executed, open the following address in your browser and view the website:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+http://localhost:3000
