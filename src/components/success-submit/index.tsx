@@ -2,8 +2,11 @@ import React from "react";
 import Button from "../button";
 import InsurancePolicyDetail from "../insurance-policy-detail";
 import SuccessForm from "@/assets/icons/success-form.svg";
+import { useRouter } from "next/navigation";
 
 function SuccessSubmit() {
+  const router = useRouter();
+
   return (
     <div>
       <div className="flex flex-col items-center">
@@ -15,7 +18,7 @@ function SuccessSubmit() {
       </div>
       <InsurancePolicyDetail />
       <div className="absolute left-[18px] bottom-[12px]">
-        <Button>بازگشت</Button>
+        <Button onClick={() => router.back()}>بازگشت</Button>
       </div>
     </div>
   );

@@ -37,8 +37,13 @@ export default function Home() {
     phoneNumber: false,
     addressId: false,
   });
-  const { isSuccess, mutate: submitOrder } = useMutation({
+  const { mutate: submitOrder } = useMutation({
     mutationFn: api.setOrder,
+    onSuccess: () => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("modal", "success");
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    },
     onError: () => {
       const params = new URLSearchParams(searchParams.toString());
       params.set("modal", "error");
@@ -79,11 +84,20 @@ export default function Home() {
       });
     }
   };
+  const multiModalRenderer: {
+    [key in "error" | "addresses" | "delete"]: React.ReactNode;
+  } = {
+    error: <RetrySubmitModal retrySubmitOrder={handleSubmitOrder} />,
+    addresses: <ModalAddress setSelectedAddress={setSelectedAddress} />,
+    delete: <DeleteAddressModal />,
+  };
 
   return (
     <div>
       <TitleBar title="مشخصات بیمه نامه" />
-      {!isSuccess ? (
+      {searchParams.get("modal") === "success" ? (
+        <SuccessSubmit />
+      ) : (
         <>
           <InsurancePolicyDetail />
           <TitleBar title="مشخصات مالک خودرو" />
@@ -93,7 +107,6 @@ export default function Home() {
             errorHandler={errorHandler}
           />
           <RegistrationAddressDetail
-            setSelectedAddress={setSelectedAddress}
             selectedAddress={selectedAddress}
             errorHandler={errorHandler}
           />
@@ -105,17 +118,13 @@ export default function Home() {
               تایید و ادامه
             </Button>
           </div>
+          {
+            multiModalRenderer[
+              searchParams.get("modal") as "error" | "addresses" | "delete"
+            ]
+          }
         </>
-      ) : (
-        <SuccessSubmit />
       )}
-      {searchParams.get("modal") === "error" && (
-        <RetrySubmitModal retrySubmitOrder={handleSubmitOrder} />
-      )}
-      {searchParams.get("modal") === "addresses" && (
-        <ModalAddress setSelectedAddress={setSelectedAddress} />
-      )}
-      {searchParams.get("modal") === "delete" && <DeleteAddressModal />}
     </div>
   );
 }
