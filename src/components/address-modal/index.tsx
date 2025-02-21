@@ -25,7 +25,7 @@ function ModalAddress({ setSelectedAddress, selectedAddress }: IProps) {
     <BaseModal title="انتخاب آدرس">
       <div className="p-4">
         <div className="flex flex-col space-y-4">
-          {false ? (
+          {addresses?.length > 0 ? (
             addresses?.map((item: IAddress) => (
               <div key={item.id} className="flex items-center justify-between">
                 <div
