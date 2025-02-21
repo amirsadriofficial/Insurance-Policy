@@ -1,3 +1,4 @@
+// DESC: Validates if the given national id is a valid Iranian national id
 export const validateNationalId = (code: string): boolean => {
   const length = code.length;
   if (length < 8 || parseInt(code, 10) == 0) return false;
@@ -10,7 +11,9 @@ export const validateNationalId = (code: string): boolean => {
   return (s < 2 && c == s) || (s >= 2 && c == 11 - s);
 };
 
+// DESC: Validates if the given phone number is a valid Iranian mobile number
 export const validatePhoneNumber = (phone: string): boolean => {
+  // DESC: Phone number should start with 09 or 9 and the length of the number should be 10 or 11
   const regex = /^(09\d{9}|9\d{9})$/;
   return regex.test(phone);
 };

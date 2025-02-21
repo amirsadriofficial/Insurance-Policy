@@ -3,11 +3,13 @@ import WithQueryClientProvider from "@/hoc/withQueryClientProvider";
 import localFont from "next/font/local";
 import "./globals.css";
 
+// DESC: add title and description on page head
 export const metadata: Metadata = {
   title: "Bime Bazar",
   description: "Insurance policy",
 };
 
+// DESC: add dana font on all body
 const danaFont = localFont({
   src: [
     {
@@ -28,7 +30,7 @@ const danaFont = localFont({
   ],
 });
 
-export default function RootLayout({
+function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -41,3 +43,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;

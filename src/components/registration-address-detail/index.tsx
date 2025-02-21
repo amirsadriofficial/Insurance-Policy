@@ -8,6 +8,7 @@ function RegistrationAddressDetail({ selectedAddress, errorHandler }: IProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  // DESC: OnClick function on open address modal 
   const handleOpenModal = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("modal", "addresses");

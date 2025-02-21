@@ -1,11 +1,6 @@
 import React from "react";
 import CarPlate from "../car-plate";
-
-const detailItems = [
-  { title: "شرکت بیمه گر", data: "پارسیان" },
-  { title: "برند خودرو", data: "پژو" },
-  { title: "مدل خودرو", data: "206 تیپ 6" },
-];
+import { detailItems } from "./constants";
 
 function InsurancePolicyDetail() {
   return (
