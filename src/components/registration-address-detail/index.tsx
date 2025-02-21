@@ -18,8 +18,8 @@ function RegistrationAddressDetail({ selectedAddress, errorHandler }: IProps) {
   return (
     <div className="px-[20px]">
       <p className="font-medium">آدرس جهت درج روی بیمه‌نامه</p>
-      {selectedAddress.addressId ? (
-        <p className="text-[14px] my-[6px] cursor-pointer" onClick={handleOpenModal}>{selectedAddress.addressTitle}</p>
+      {selectedAddress?.addressId ? (
+        <p className="text-[14px] my-[6px] cursor-pointer" onClick={handleOpenModal}>{selectedAddress?.addressTitle}</p>
       ) : (
         <>
           <p

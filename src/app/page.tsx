@@ -110,7 +110,7 @@ function Home() {
   };
 
   return (
-    <div>
+    <div suppressHydrationWarning>
       <TitleBar title="مشخصات بیمه نامه" />
       {searchParams.get("modal") === "success" ? (
         <SuccessSubmit />

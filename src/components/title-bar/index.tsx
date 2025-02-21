@@ -3,7 +3,7 @@ import { IProps } from "./types";
 
 function TitleBar({ title }: IProps) {
   return (
-    <div className="w-full flex gap-2 py-[12px] px-[8px] title-bar-shadow mb-[24px]">
+    <div className="w-full flex items-center gap-2 py-[12px] px-[8px] title-bar-shadow mb-[24px]">
       <div className="bg-[#FFC453] p-[6px] rounded-[5px]">
         <CarIcon />
       </div>
