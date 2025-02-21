@@ -3,7 +3,6 @@
 This project allows users to view vehicle information, enter vehicle owner details, and generate an insurance policy for the vehicle.
 
 See it live from [here](https://insurance-policy-project.vercel.app/).
-> **Note:** You should visit the site without any CORS extension.
 
 ## Features
 
