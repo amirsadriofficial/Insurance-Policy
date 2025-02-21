@@ -1,7 +1,7 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React from "react";
+import React, { Suspense } from "react";
 import { WithQueryClientProviderProps } from "./types";
 
 const WithQueryClientProvider: React.FC<WithQueryClientProviderProps> = ({
@@ -17,7 +17,12 @@ const WithQueryClientProvider: React.FC<WithQueryClientProviderProps> = ({
 
   return (
     <QueryClientProvider client={queryClient}>
-      {wrappedComponent}
+      {/* TODO: Design and implement a proper fallback page */}
+      <Suspense
+        fallback={<div className="text-center">لطفا منتظر بمانید...</div>}
+      >
+        {wrappedComponent}
+      </Suspense>
     </QueryClientProvider>
   );
 };
