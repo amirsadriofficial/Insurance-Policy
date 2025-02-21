@@ -45,7 +45,7 @@ In this project we follow the folder structuring based on our folder categoriy.
 - `app`: all pages.
 - `assets`: all of assets related to user interface such icons, images and etc.
 - `components`: all of component related to user interacting such Inputs, Buttons, Text fields and etc.
-- ‍‍‍‍`config`: All configuration files, such as Axios setup and etc.
+- ‍‍‍‍`config`: all configuration files, such as Axios setup and etc.
 - `hoc`: all higher order components such WithQueryClientProvider and etc.
 - `hooks`: all custom hooks like useLocalStorageState and etc.
 - `services`: all of services related to api call such getAddresses, sendOrder and etc.
