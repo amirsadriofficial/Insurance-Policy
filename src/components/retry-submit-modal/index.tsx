@@ -4,7 +4,7 @@ import Button from "../button";
 import { useRouter } from "next/navigation";
 import { IProps } from "./types";
 
-function RetrySubmitModal({ retrySubmitOrder }: IProps) {
+function RetrySubmitModal({ retrySubmitOrder, isLoading }: IProps) {
   const router = useRouter();
 
   return (
@@ -15,10 +15,15 @@ function RetrySubmitModal({ retrySubmitOrder }: IProps) {
         </p>
         <p className="font-semibold text-[14px] mb-[16px]">مجددا، تلاش کنید.</p>
         <div className="flex gap-[12px]">
-          <Button fullWidth onClick={retrySubmitOrder}>
+          <Button fullWidth onClick={retrySubmitOrder} isLoading={isLoading}>
             تلاش مجدد
           </Button>
-          <Button isOutlined fullWidth onClick={() => router.back()}>
+          <Button
+            isOutlined
+            fullWidth
+            onClick={() => router.back()}
+            isDisabled={isLoading}
+          >
             بازگشت
           </Button>
         </div>

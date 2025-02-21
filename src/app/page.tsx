@@ -20,8 +20,14 @@ export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [nationalId, setNationalId] = useLocalStorageState<string>("nationalId", "");
-  const [phoneNumber, setPhoneNumber] = useLocalStorageState<string>("phoneNumber", "");
+  const [nationalId, setNationalId] = useLocalStorageState<string>(
+    "nationalId",
+    ""
+  );
+  const [phoneNumber, setPhoneNumber] = useLocalStorageState<string>(
+    "phoneNumber",
+    ""
+  );
   const [selectedAddress, setSelectedAddress] = useLocalStorageState<{
     addressId: string;
     addressTitle: string;
@@ -90,8 +96,18 @@ export default function Home() {
   const multiModalRenderer: {
     [key in "error" | "addresses" | "delete"]: React.ReactNode;
   } = {
-    error: <RetrySubmitModal retrySubmitOrder={handleSubmitOrder} />,
-    addresses: <ModalAddress setSelectedAddress={setSelectedAddress} selectedAddress={selectedAddress} />,
+    error: (
+      <RetrySubmitModal
+        retrySubmitOrder={handleSubmitOrder}
+        isLoading={submitOrderRequestStatus === "pending"}
+      />
+    ),
+    addresses: (
+      <ModalAddress
+        setSelectedAddress={setSelectedAddress}
+        selectedAddress={selectedAddress}
+      />
+    ),
     delete: <DeleteAddressModal />,
   };
 
