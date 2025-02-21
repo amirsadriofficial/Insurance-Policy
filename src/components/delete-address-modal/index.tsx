@@ -11,6 +11,7 @@ function DeleteAddressModal() {
   const address = addresses.find(
     (addr: { id: string }) => addr?.id === addressId
   );
+  // DESC: OnClick function on delete(X) button
   const handleDelete = () => {
     const updatedAddresses = addresses.filter(
       (addr: { id: string }) => addr.id !== addressId

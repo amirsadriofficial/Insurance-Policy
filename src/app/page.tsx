@@ -1,22 +1,23 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import ModalAddress from "@/components/address-modal";
-import Button from "@/components/button";
 import CarOwnerDetail from "@/components/car-owner-details";
 import InsurancePolicyDetail from "@/components/insurance-policy-detail";
 import RegistrationAddressDetail from "@/components/registration-address-detail";
 import RetrySubmitModal from "@/components/retry-submit-modal";
 import SuccessSubmit from "@/components/success-submit";
 import TitleBar from "@/components/title-bar";
-import api from "@/services";
-import { validateNationalId, validatePhoneNumber } from "@/utils/helper";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Button from "@/components/button";
 import DeleteAddressModal from "@/components/delete-address-modal";
 import useLocalStorageState from "@/hooks/useLocalStorageState";
+import { validateNationalId, validatePhoneNumber } from "@/utils/helper";
+import { IErrorHandler, IMultiModalRenderer, ISelectedAddress } from "./types";
+import api from "@/services";
 
-export default function Home() {
+function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -28,22 +29,17 @@ export default function Home() {
     "phoneNumber",
     ""
   );
-  const [selectedAddress, setSelectedAddress] = useLocalStorageState<{
-    addressId: string;
-    addressTitle: string;
-  }>("selectedAddress", {
-    addressId: "",
-    addressTitle: "",
-  });
-  const [errorHandler, setErrorHandler] = useState<{
-    nationalId: boolean;
-    phoneNumber: boolean;
-    addressId: boolean;
-  }>({
+  const [selectedAddress, setSelectedAddress] =
+    useLocalStorageState<ISelectedAddress>("selectedAddress", {
+      addressId: "",
+      addressTitle: "",
+    });
+  const [errorHandler, setErrorHandler] = useState<IErrorHandler>({
     nationalId: false,
     phoneNumber: false,
     addressId: false,
   });
+  // DESC: Send order completion
   const { mutate: submitOrder, status: submitOrderRequestStatus } = useMutation(
     {
       mutationFn: api.setOrder,
@@ -59,16 +55,19 @@ export default function Home() {
       },
     }
   );
-  const { data } = useQuery({
+  // DESC: Get Address list
+  const { data: addresses } = useQuery({
     queryKey: ["Addresses"],
     queryFn: api.getAddresses,
   });
+  // DESC: set Addresses and clear stale addresses before set new data
   useEffect(() => {
-    if (data) {
+    if (addresses) {
       localStorage.removeItem("addresses");
-      localStorage.setItem("addresses", JSON.stringify(data?.data));
+      localStorage.setItem("addresses", JSON.stringify(addresses?.data));
     }
-  }, [data]);
+  }, [addresses]);
+  // DESC: OnCLick function on submit order button
   const handleSubmitOrder = () => {
     if (
       !validateNationalId(nationalId) ||
@@ -93,9 +92,8 @@ export default function Home() {
       });
     }
   };
-  const multiModalRenderer: {
-    [key in "error" | "addresses" | "delete"]: React.ReactNode;
-  } = {
+  // DESC: Render suitable modal based on url query
+  const multiModalRenderer: IMultiModalRenderer = {
     error: (
       <RetrySubmitModal
         retrySubmitOrder={handleSubmitOrder}
@@ -150,3 +148,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
