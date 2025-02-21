@@ -4,6 +4,8 @@ import { IProps } from "./types";
 function CarOwnerDetail({
   setNationalId,
   setPhoneNumber,
+  nationalId,
+  phoneNumber,
   errorHandler,
 }: IProps) {
   return (
@@ -17,6 +19,7 @@ function CarOwnerDetail({
           errorHandler.nationalId && "border-[#E61F10]"
         }`}
         placeholder="کدملی"
+        defaultValue={nationalId}
         onChange={(e) => setNationalId(e.target.value)}
       />
       <p className="h-[28px] text-[14px] text-[#E61F10]">
@@ -28,6 +31,7 @@ function CarOwnerDetail({
           errorHandler.phoneNumber && "border-[#E61F10]"
         }`}
         placeholder="شماره تلفن همراه"
+        defaultValue={phoneNumber}
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
       <p className="h-[28px] text-[14px] text-[#E61F10]">

@@ -14,17 +14,18 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import DeleteAddressModal from "@/components/delete-address-modal";
+import useLocalStorageState from "@/hooks/useLocalStorageState";
 
 export default function Home() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [nationalId, setNationalId] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [selectedAddress, setSelectedAddress] = useState<{
+  const [nationalId, setNationalId] = useLocalStorageState<string>("nationalId", "");
+  const [phoneNumber, setPhoneNumber] = useLocalStorageState<string>("phoneNumber", "");
+  const [selectedAddress, setSelectedAddress] = useLocalStorageState<{
     addressId: string;
     addressTitle: string;
-  }>({
+  }>("selectedAddress", {
     addressId: "",
     addressTitle: "",
   });
@@ -37,19 +38,21 @@ export default function Home() {
     phoneNumber: false,
     addressId: false,
   });
-  const { mutate: submitOrder } = useMutation({
-    mutationFn: api.setOrder,
-    onSuccess: () => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("modal", "success");
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    },
-    onError: () => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("modal", "error");
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    },
-  });
+  const { mutate: submitOrder, status: submitOrderRequestStatus } = useMutation(
+    {
+      mutationFn: api.setOrder,
+      onSuccess: () => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("modal", "success");
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      },
+      onError: () => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set("modal", "error");
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      },
+    }
+  );
   const { data } = useQuery({
     queryKey: ["Addresses"],
     queryFn: api.getAddresses,
@@ -88,7 +91,7 @@ export default function Home() {
     [key in "error" | "addresses" | "delete"]: React.ReactNode;
   } = {
     error: <RetrySubmitModal retrySubmitOrder={handleSubmitOrder} />,
-    addresses: <ModalAddress setSelectedAddress={setSelectedAddress} />,
+    addresses: <ModalAddress setSelectedAddress={setSelectedAddress} selectedAddress={selectedAddress} />,
     delete: <DeleteAddressModal />,
   };
 
@@ -104,6 +107,8 @@ export default function Home() {
           <CarOwnerDetail
             setNationalId={setNationalId}
             setPhoneNumber={setPhoneNumber}
+            nationalId={nationalId}
+            phoneNumber={phoneNumber}
             errorHandler={errorHandler}
           />
           <RegistrationAddressDetail
@@ -113,6 +118,7 @@ export default function Home() {
           <div className="absolute left-[18px] bottom-[12px]">
             <Button
               isDisabled={!nationalId || !phoneNumber}
+              isLoading={submitOrderRequestStatus === "pending"}
               onClick={handleSubmitOrder}
             >
               تایید و ادامه

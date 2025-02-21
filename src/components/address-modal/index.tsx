@@ -1,17 +1,15 @@
 "use client";
 
 import CloseIcon from "@/assets/icons/close.svg";
-import { useState } from "react";
 import Button from "../button";
 import BaseModal from "../base-modal";
 import { IAddress, IProps } from "./types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function ModalAddress({ setSelectedAddress }: IProps) {
+function ModalAddress({ setSelectedAddress, selectedAddress }: IProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const handleDelete = (id: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("modal", "delete");
@@ -32,7 +30,6 @@ function ModalAddress({ setSelectedAddress }: IProps) {
                 className="flex items-center gap-3"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedOption(item.id);
                   setSelectedAddress({
                     addressId: item.id,
                     addressTitle: item.details,
@@ -44,10 +41,9 @@ function ModalAddress({ setSelectedAddress }: IProps) {
                   id={item.id}
                   name="radioGroup"
                   value={item.id}
-                  checked={selectedOption === item.id}
+                  checked={item.id === selectedAddress.addressId}
                   onChange={(e) => {
                     e.stopPropagation();
-                    setSelectedOption(item.id);
                     setSelectedAddress({
                       addressId: item.id,
                       addressTitle: item.details,
@@ -78,7 +74,11 @@ function ModalAddress({ setSelectedAddress }: IProps) {
         </div>
       </div>
       <div className="p-[10px]">
-        <Button fullWidth onClick={() => router.back()}>
+        <Button
+          fullWidth
+          onClick={() => router.back()}
+          isDisabled={!selectedAddress.addressId}
+        >
           انتخاب
         </Button>
       </div>

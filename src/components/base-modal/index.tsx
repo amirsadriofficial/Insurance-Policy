@@ -23,7 +23,9 @@ function BaseModal({ title, children }: IProps) {
             {title && (
               <div className="flex justify-between p-4 border-b border-b-[#E0E0E0]">
                 <p className="font-semibold">{title}</p>
-                <CloseIcon onClick={handleCloseModal} />
+                <div className="cursor-pointer">
+                  <CloseIcon onClick={handleCloseModal} />
+                </div>
               </div>
             )}
             {children}

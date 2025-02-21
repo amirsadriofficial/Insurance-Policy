@@ -1,4 +1,8 @@
 export interface IProps {
+  selectedAddress: {
+    addressId: string;
+    addressTitle: string;
+  }
   setSelectedAddress: ({
     addressId,
     addressTitle,
