@@ -25,53 +25,57 @@ function ModalAddress({ setSelectedAddress, selectedAddress }: IProps) {
     <BaseModal title="انتخاب آدرس">
       <div className="p-4">
         <div className="flex flex-col space-y-4">
-          {addresses?.map((item: IAddress) => (
-            <div key={item.id} className="flex items-center justify-between">
-              <div
-                className="flex items-center gap-3"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedAddress({
-                    addressId: item.id,
-                    addressTitle: item.details,
-                  });
-                }}
-              >
-                <input
-                  type="radio"
-                  id={item.id}
-                  name="radioGroup"
-                  value={item.id}
-                  checked={item.id === selectedAddress.addressId}
-                  onChange={(e) => {
+          {false ? (
+            addresses?.map((item: IAddress) => (
+              <div key={item.id} className="flex items-center justify-between">
+                <div
+                  className="flex items-center gap-3"
+                  onClick={(e) => {
                     e.stopPropagation();
                     setSelectedAddress({
                       addressId: item.id,
                       addressTitle: item.details,
                     });
                   }}
-                  className="mb-2"
-                />
-                <div>
-                  <label htmlFor={item.id} className="font-semibold">
-                    {item.name}
-                  </label>
-                  <p className="text-[12px] text-gray-600 mb-2">
-                    {item.details}
-                  </p>
+                >
+                  <input
+                    type="radio"
+                    id={item.id}
+                    name="radioGroup"
+                    value={item.id}
+                    checked={item.id === selectedAddress.addressId}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      setSelectedAddress({
+                        addressId: item.id,
+                        addressTitle: item.details,
+                      });
+                    }}
+                    className="mb-2"
+                  />
+                  <div>
+                    <label htmlFor={item.id} className="font-semibold">
+                      {item.name}
+                    </label>
+                    <p className="text-[12px] text-gray-600 mb-2">
+                      {item.details}
+                    </p>
+                  </div>
                 </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(item.id);
+                  }}
+                  className="[&_path]:fill-[#dd7272]"
+                >
+                  <CloseIcon />
+                </button>
               </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDelete(item.id);
-                }}
-                className="[&_path]:fill-[#dd7272]"
-              >
-                <CloseIcon />
-              </button>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-center">موردی برای نمایش وجود ندارد</p>
+          )}
         </div>
       </div>
       <div className="p-[10px]">
